@@ -1,0 +1,188 @@
+SELECT 
+	ZWM07_UNION.*,
+	ZWM06.PHAN_LOAI_GIAO_DICH,
+	ZWM06.SL_GT,
+	ZWM06.C1_NHOM_GIAO_DICH,
+	ZWM06.C2_NHOM_GIAO_DICH,
+	ZWM06.C3_NHOM_GIAO_DICH,
+	ZWM06.C4_NHOM_GIAO_DICH,
+	ZWM07_UNION.VALUE_GT / ZWM07_UNION.VALUE_SL DON_GIA
+	
+FROM (
+	SELECT
+		ZWM07_N1.thang,
+		ZWM07_N1.plant,
+		ZWM07_N1.material,
+		ZWM07_N1.material_description,
+		ZWM07_N1.valuation_type,
+		ZWM07_N1.gl_account,
+		ZWM07_N1.dvt,
+
+		DA_SAP_ZWM07_N1_UNION.PHAN_LOAI_GD_SL,
+		DA_SAP_ZWM07_N1_UNION.VALUE_SL,
+		DA_SAP_ZWM07_N1_UNION.PHAN_LOAI_GD_GT,
+		DA_SAP_ZWM07_N1_UNION.VALUE_GT
+	FROM (
+		SELECT ID,
+			'Tồn đầu kỳ' AS PHAN_LOAI_GD_SL,
+			SO_LUONG_TON_KHO_DAU_KY AS VALUE_SL,
+			'GT đầu kỳ' AS PHAN_LOAI_GD_GT,
+			GIA_TRI_TON_KHO_DAU_KY AS VALUE_GT
+		FROM DA_SAP_ZWM07_N1
+		UNION ALL
+		SELECT ID,
+			'Nhập mua hàng' AS PHAN_LOAI_GD_SL,
+			NHAP_MUA_HANG AS VALUE_SL,
+			'Giá trị nhập mua hàng' AS PHAN_LOAI_GD_GT,
+			GIA_TRI_NHAP_MUA_HANG AS VALUE_GT
+		FROM DA_SAP_ZWM07_N1
+		UNION ALL
+		SELECT ID,
+			'Nhập sản xuất' AS PHAN_LOAI_GD_SL,
+			NHAP_SAN_XUAT AS VALUE_SL,
+			'Giá trị nhập sản xuất' AS PHAN_LOAI_GD_GT,
+			GIA_TRI_NHAP_SAN_XUAT AS VALUE_GT
+		FROM DA_SAP_ZWM07_N1
+		UNION ALL
+		SELECT ID,
+			'Nhập trả hàng' AS PHAN_LOAI_GD_SL,
+			NHAP_TRA_HANG AS VALUE_SL,
+			'Giá trị nhập trả hàng' AS PHAN_LOAI_GD_GT,
+			GIA_TRI_NHAP_TRA_HANG AS VALUE_GT
+		FROM DA_SAP_ZWM07_N1
+		UNION ALL
+		SELECT ID,
+			'Nhập PO-STO' AS PHAN_LOAI_GD_SL,
+			NHAP_POSTO AS VALUE_SL,
+			'Giá trị PO-STO' AS PHAN_LOAI_GD_GT,
+			GIA_TRI_NHAP_POSTO AS VALUE_GT
+		FROM DA_SAP_ZWM07_N1
+		UNION ALL
+		SELECT ID,
+			'Nhập khác' AS PHAN_LOAI_GD_SL,
+			NHAP_KHAC AS VALUE_SL,
+			'Giá trị nhập khác' AS PHAN_LOAI_GD_GT,
+			GIA_TRI_NHAP_KHAC AS VALUE_GT
+		FROM DA_SAP_ZWM07_N1
+		UNION ALL
+		SELECT ID,
+			'Nhập chuyển mã' AS PHAN_LOAI_GD_SL,
+			NHAP_CHUYEN_MA AS VALUE_SL,
+			'Giá trị nhập chuyển mã' AS PHAN_LOAI_GD_GT,
+			GIA_TRI_NHAP_CHUYEN_MA AS VALUE_GT
+		FROM DA_SAP_ZWM07_N1
+		UNION ALL
+		SELECT ID,
+			'Nhập chuyển batch' AS PHAN_LOAI_GD_SL,
+			NHAP_CHUYEN_BATCH AS VALUE_SL,
+			'Giá trị nhập chuyển batch' AS PHAN_LOAI_GD_GT,
+			GIA_TRI_NHAP_CHUYEN_BATCH AS VALUE_GT
+		FROM DA_SAP_ZWM07_N1
+		UNION ALL
+		SELECT ID,
+			'Nhập chuyển kho' AS PHAN_LOAI_GD_SL,
+			NHAP_CHUYEN_KHO AS VALUE_SL,
+			'Giá trị nhập chuyển kho' AS PHAN_LOAI_GD_GT,
+			GIA_TRI_NHAP_CHUYEN_KHO AS VALUE_GT
+		FROM DA_SAP_ZWM07_N1
+		UNION ALL
+		SELECT ID,
+			'Xuất sản xuất' AS PHAN_LOAI_GD_SL,
+			XUAT_SAN_XUAT AS VALUE_SL,
+			'Giá trị xuất sản xuất' AS PHAN_LOAI_GD_GT,
+			GIA_TRI_XUAT_SAN_XUAT AS VALUE_GT
+		FROM DA_SAP_ZWM07_N1
+		UNION ALL
+		SELECT ID,
+			'Xuất bán hàng' AS PHAN_LOAI_GD_SL,
+			XUAT_BAN_HANG AS VALUE_SL,
+			'Giá trị xuất bán hàng' AS PHAN_LOAI_GD_GT,
+			GIATRI_XUAT_BAN_HANG AS VALUE_GT
+		FROM DA_SAP_ZWM07_N1
+		UNION ALL
+		SELECT ID,
+			'Xuất trả hàng' AS PHAN_LOAI_GD_SL,
+			XUAT_TRA_HANG AS VALUE_SL,
+			'Giá trị xuất trả hàng' AS PHAN_LOAI_GD_GT,
+			GIA_TRI_XUAT_TRA_HANG AS VALUE_GT
+		FROM DA_SAP_ZWM07_N1
+		UNION ALL
+		SELECT ID,
+			'Xuất PO-STO' AS PHAN_LOAI_GD_SL,
+			XUAT_POSTO AS VALUE_SL,
+			'Giá trị PO-STO2' AS PHAN_LOAI_GD_GT,
+			GIA_TRI_XUAT_POSTO AS VALUE_GT
+		FROM DA_SAP_ZWM07_N1
+		UNION ALL
+		SELECT ID,
+			'Xuất khác' AS PHAN_LOAI_GD_SL,
+			XUAT_KHAC AS VALUE_SL,
+			'Giá trị xuất khác' AS PHAN_LOAI_GD_GT,
+			GIA_TRI_XUAT_KHAC AS VALUE_GT
+		FROM DA_SAP_ZWM07_N1
+		UNION ALL
+		SELECT ID,
+			'Xuất chuyển mã' AS PHAN_LOAI_GD_SL,
+			XUAT_CHUYEN_MA AS VALUE_SL,
+			'Giá trị xuất chuyển mã' AS PHAN_LOAI_GD_GT,
+			GIA_TRI_XUAT_CHUYEN_MA AS VALUE_GT
+		FROM DA_SAP_ZWM07_N1
+		UNION ALL
+		SELECT ID,
+			'Xuất chuyển batch' AS PHAN_LOAI_GD_SL,
+			XUAT_CHUYEN_BATCH AS VALUE_SL,
+			'Giá trị xuất chuyển batch' AS PHAN_LOAI_GD_GT,
+			GIA_TRI_XUAT_CHUYEN_BATCH AS VALUE_GT
+		FROM DA_SAP_ZWM07_N1
+		UNION ALL
+		SELECT ID,
+			'Xuất chuyển kho' AS PHAN_LOAI_GD_SL,
+			XUAT_CHUYEN_KHO AS VALUE_SL,
+			'Giá trị xuất chuyển kho' AS PHAN_LOAI_GD_GT,
+			GIA_TRI_XUAT_CHUYEN_KHO AS VALUE_GT
+		FROM DA_SAP_ZWM07_N1
+		UNION ALL
+		SELECT ID,
+			'Tồn cuối kỳ' AS PHAN_LOAI_GD_SL,
+			SO_LUONG_TON_KHO_CUOI_KY AS VALUE_SL,
+			'GT cuối kỳ' AS PHAN_LOAI_GD_GT,
+			GIA_TRI_TON_KHO_CUOI_KY AS VALUE_GT
+		FROM DA_SAP_ZWM07_N1
+	) DA_SAP_ZWM07_N1_UNION
+	JOIN DA_SAP_ZWM07_N1 AS ZWM07_N1
+	ON (ZWM07_N1.ID = DA_SAP_ZWM07_N1_UNION.ID)
+
+	UNION ALL
+
+	select 
+		thang,
+		plant,
+		material,
+		material_description,
+		valuation_type,
+		gl_account,
+		dvt,
+		case
+			when attribute not like 'Giá trị%' and attribute not like 'GT%'
+			then attribute
+		end phan_loai_gd_sl,
+
+		case
+			when attribute not like 'Giá trị%' and attribute not like 'GT%'
+			then value
+		end value_sl,
+
+		case
+			when attribute like 'Giá trị%' or attribute like 'GT%'
+			then attribute
+		end phan_loai_gd_gt,
+
+		case
+			when attribute like 'Giá trị%' or attribute like 'GT%'
+			then value
+		end value_gt
+	from da_sap_zwm07_p2
+) ZWM07_UNION
+JOIN da_master_sap_zwm06_n1 ZWM06
+ON (ZWM06.PHAN_LOAI_GIAO_DICH = ZWM07_UNION.PHAN_LOAI_GD_SL)
+WHERE ZWM07_UNION.VALUE_SL != 0 AND ZWM07_UNION.VALUE_GT != 0
